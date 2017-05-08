@@ -1,0 +1,362 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Rating box</title>
+
+    <link rel="stylesheet" href="font-awesome-4.7.0/css/font-awesome.css" />
+    <link rel="stylesheet" href="ratingbox.css" />
+
+    <style>
+        xmp { background-color: #efefef; }
+        h2 { margin-top:3em; text-transform: uppercase; }
+        h3 { margin-top:2em; }
+        table { display: block; border: 1px #999 solid; display:inline-block; }
+            thead { background-color:#444; }
+              th { padding: 1em 2em; color:#fff; }
+            td { padding: 0.5em 1em; border: 1px #999 solid; }
+    </style>
+</head>
+<body>
+    <h1>RATINGBOX</h1>
+    <p>A jQuery plugin that uses Font Awesome to display rating boxes in your page</p>
+    <div>
+        <h2>Setup</h2>
+        <p>Download package from <a href="">GitHub repository</a> and install it in your page:</p>
+<xmp>
+    <html>
+        <head>
+            <link rel="stylesheet" href="font-awesome-4.7.0/css/font-awesome.css" />
+            <link rel="stylesheet" href="ratingbox.css" />
+        </head>
+        <body>
+
+            <!-- PAGE BOTTOM -->
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+            <script src="ratingbox.js"></script>
+        </body>
+    </html>
+</xmp>
+    <p><code>ratingbox.css</code> file is not a mandatory. Use it to customize your rating boxes</p>
+    </div>
+
+    <div>
+        <h2>Examples</h2>
+    </div>
+
+    <div>
+        <h3>Display a rating box in read only mode</h3>
+        <div id="rating1" class="ratingbox"></div>
+<xmp>
+    <div id="rating1" class="ratingbox"></div>
+    <script>
+        $('#rating1').ratingBox({
+            value: 2
+        });
+    </script>
+</xmp>
+    </div>
+
+    <div>
+        <h3>Display text value on right side</h3>
+        <div id="rating2" class="ratingbox"></div>
+<xmp>
+    <div id="rating2" class="ratingbox"></div>
+    <script>
+        $('#rating2').ratingBox({
+            value: 2,
+            displayValue: true
+        });
+    </script>
+</xmp>
+    </div>
+
+    <div>
+        <h3>Setting options in <i>data-*</i> attributes.</h3>
+        <p>Note: data-* attributes take precedence over jQuery configuration</p>
+        <div id="rating3" class="ratingbox" data-value="2.5" data-display-value="true"></div>
+<xmp>
+    <div id="rating3" class="ratingbox" data-value="2.5" data-display-value="true"></div>
+    <script>
+        $('#rating3').ratingBox({
+            value: 1 //no effects: data-* attributes takes precedence
+        });
+    </script>
+</xmp>
+    </div>
+
+    <div>
+        <h3>Increase size. Values between 1 and 5</h3>
+        <div id="rating4" class="ratingbox"></div>
+<xmp>
+    <div id="rating4" class="ratingbox"></div>
+    <script>
+        $('#rating4').ratingBox({
+            value: 2.5,
+            size: 2
+        });
+    </script>
+</xmp>
+    </div>
+
+    <div>
+        <h3>Allow user input its rate</h3>
+        <div id="rating5" class="ratingbox"></div>
+<xmp>
+    <div id="rating5" class="ratingbox"></div>
+    <script>
+        $('#rating5').ratingBox({
+            mode: 'rating'
+        });
+    </script>
+</xmp>
+    </div>
+
+    <div>
+        <h3>Custom <i>click</i> event handler</h3>
+        <div id="rating6" class="ratingbox"></div>
+<xmp>
+    <div id="rating6" class="ratingbox"></div>
+    <script>
+        $('#rating6').ratingBox({
+            mode: 'rating',
+            displayValue: true,
+            onClick: function () {
+                alert($(this).data('value'));
+            }
+        });
+    </script>
+</xmp>
+    </div>
+
+    <div>
+        <h3>Surround hidden input element for FORM usage.</h3>
+        <p>Analize DOM element to see input hidden value changes as well</p>
+        <form action="mypage.php" method="post">
+            <div id="rating7" class="ratingbox">
+                <input type="hidden" name="rating" />
+            </div>
+            <button type="submit">SEND</button>
+        </form>
+<xmp>
+    <form action="mypage.php" method="post">
+        <div id="rating7" class="ratingbox">
+            <input type="hidden" name="rating" />
+        </div>
+    </form>
+    <script>
+        $('#rating7').ratingBox({
+            mode: 'rating',
+            displayValue: true,
+        });
+    </script>
+</xmp>
+    </div>
+
+    <div>
+        <h3>Ajax usage</h3>
+        <div id="rating8" class="ratingbox"></div>
+<xmp>
+    <div id="rating8" class="ratingbox"></div>
+    <script>
+        $('#rating8').ratingBox({
+            mode: 'rating',
+            displayValue: true,
+            onClick: function () {
+                var rating = $(this).data('value');
+                $.ajax({
+                    type: 'POST',
+                    url: 'mypage.php',
+                    data: {
+                        rating: rating
+                    }
+                })
+                .done(function () {
+                    alert('success');
+                })
+                .fail(function () {
+                    alert('an error has occurred');
+                });
+            }
+            });
+    </script>
+</xmp>
+    </div>
+
+    <div>
+        <h3>Setting value programmatically</h3>
+        <p><strong>Important:</strong> Don't set <code>data-value</code> directlly, use <code>setValue</code> method instead.</p>
+        <div id="rating9" class="ratingbox"></div>
+        <button id="rate4-btn">Rate 4!</button>
+        <xmp>
+            <div id="rating8" class="ratingbox"></div>
+            <script>
+                $('#rating9').ratingBox({
+                    mode: 'rating',
+                    displayValue: true,
+                });
+                $('#rate4-btn').on('click', function () {
+                    $('#rating9').ratingBox('setValue', 4);
+                    return false;
+                });
+            </script>
+        </xmp>
+    </div>
+
+    <div>
+        <h2>Reference</h2>
+        <h3>Options</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>option</th>
+                    <th>type</th>
+                    <th>data-*</th>
+                    <th>accept</th>
+                    <th>default</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>value</td>
+                    <td>Float</td>
+                    <td>data-value</td>
+                    <td>from 0 to 5</td>
+                    <td>0</td>
+                </tr>
+                <tr>
+                    <td>mode</td>
+                    <td>String</td>
+                    <td>data-mode</td>
+                    <td>'display' or 'rating'</td>
+                    <td>display</td>
+                </tr>
+                <tr>
+                    <td>size</td>
+                    <td>Int32</td>
+                    <td>data-size</td>
+                    <td>from 1 to 5</td>
+                    <td>1</td>
+                </tr>
+                <tr>
+                    <td>displayValue</td>
+                    <td>Boolean</td>
+                    <td>data-display-value</td>
+                    <td>true or false</td>
+                    <td>false</td>
+                </tr>
+            </tbody>
+        </table>
+        <h3>Methods</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Input</th>
+                    <th>Returns</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>setValue</td>
+                    <td>value (Int32)</td>
+                    <td>N/A</td>
+                    <td>Set ratingBox value programmatically</td>
+                </tr>
+            </tbody>
+        </table>   
+        <h3>Events</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Handles</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>onClick</td>
+                    <td>Click</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="ratingbox.js"></script>
+    <script>
+        $('#rating1').ratingBox({ value: 2.5 });
+
+        $('#rating2').ratingBox(
+        {
+            value: 2,
+            displayValue: true
+        });
+
+        $('#rating3').ratingBox({ value: 1 });
+
+        $('#rating4').ratingBox(
+        {
+            value: 2.5,
+            size: 2
+        });
+
+        $('#rating5').ratingBox(
+        {
+            mode: 'rating'
+        });
+
+        $('#rating6').ratingBox(
+        {
+            mode: 'rating',
+            displayValue: true,
+            onClick: function () {
+                alert($(this).data('value'));
+            }
+        });
+
+        $('#rating7').ratingBox(
+        {
+            mode: 'rating',
+            displayValue: true,
+        });
+
+        $('#rating8').ratingBox(
+        {
+            mode: 'rating',
+            displayValue: true,
+            onClick: function () {
+                var rating = $(this).data('value');
+                $.ajax({
+                    type: 'POST',
+                    url: 'mypage.php',
+                    data: {
+                        rating: rating
+                    }
+                })
+                .done(function () {
+                    alert('success');
+                })
+                .fail(function () {
+                    alert('an error has occurred');
+                });
+            }
+        });
+
+        $('#rating9').ratingBox({
+            mode: 'rating',
+            displayValue: true,
+        });
+        $('#rate4-btn').on('click', function () {
+            $('#rating9').ratingBox('setValue', 4);
+            return false;
+        });
+    </script>
+
+</body>
+</html>
