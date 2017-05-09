@@ -1,7 +1,7 @@
 # ratingBox.js
 A jQuery plugin that uses Font Awesome to display rating boxes in your page
 
-# setup
+# Setup
 
     <html>
         <head>
@@ -18,7 +18,7 @@ A jQuery plugin that uses Font Awesome to display rating boxes in your page
 
 ratingbox.css file is not a mandatory. Use it to customize your rating boxes
 
-# use
+# Use
 
     <div id="rating1" class="ratingbox"></div>
     <script>
