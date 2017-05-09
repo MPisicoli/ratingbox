@@ -1,5 +1,5 @@
 /*
- * ratingbox.js Version 0.1
+ * ratingbox.js Version
  * jQuery Plugin that use font-awesome to display rating boxes.
  *  
  * Licensed under MIT license
